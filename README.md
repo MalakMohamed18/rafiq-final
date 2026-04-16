@@ -35,4 +35,4 @@
 1. **تحميل المشروع:**
    ```bash
    git clone [https://github.com/your-username/rafiq-final.git](https://github.com/your-username/rafiq-final.git)
-   cd rafiq-app
+   cd rafiq-final
