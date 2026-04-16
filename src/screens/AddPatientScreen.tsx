@@ -69,7 +69,6 @@ const AddPatientScreen = ({ onSuccess }: AddPatientProps) => {
           contentContainerStyle={styles.container}
           showsVerticalScrollIndicator={false}
         >
-          {/* Header - تم استبدال Animated.View بـ View عادية */}
           <View style={styles.header}>
             <View style={[styles.iconHeader, { backgroundColor: colors.primary + '20' }]}>
               <MaterialCommunityIcons name="account-plus" size={32} color={colors.primary} />
@@ -78,9 +77,7 @@ const AddPatientScreen = ({ onSuccess }: AddPatientProps) => {
             <Text style={[styles.headerSubtitle, { color: colors.subText }]}>بيانات الشخص الخاضع للرعاية</Text>
           </View>
 
-          {/* Form - تم استبدال Animated.View بـ View عادية */}
           <View style={[styles.form, { backgroundColor: colors.card }]}>
-            {/* Patient Name */}
             <View style={styles.inputGroup}>
               <Text style={[styles.label, { color: colors.text }]}>الاسم الكامل</Text>
               <TextInput
@@ -95,8 +92,6 @@ const AddPatientScreen = ({ onSuccess }: AddPatientProps) => {
                 onChangeText={setName}
               />
             </View>
-
-            {/* Age & Blood Type Row */}
             <View style={styles.row}>
               <View style={[styles.inputGroup, { flex: 1 }]}>
                 <Text style={[styles.label, { color: colors.text }]}>العمر</Text>
@@ -129,8 +124,6 @@ const AddPatientScreen = ({ onSuccess }: AddPatientProps) => {
                 />
               </View>
             </View>
-
-            {/* Gender Selection */}
             <Text style={[styles.label, { color: colors.text, marginBottom: 12 }]}>الجنس</Text>
             <View style={styles.genderContainer}>
               <TouchableOpacity 
@@ -164,7 +157,6 @@ const AddPatientScreen = ({ onSuccess }: AddPatientProps) => {
               </TouchableOpacity>
             </View>
 
-            {/* Submit Button */}
             <TouchableOpacity 
               activeOpacity={0.9}
               style={[styles.submitBtn, { backgroundColor: colors.primary, shadowColor: colors.primary }]} 

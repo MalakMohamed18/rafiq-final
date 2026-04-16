@@ -21,7 +21,6 @@ interface GeneralProps {
 
 const { width: SW } = Dimensions.get('window');
 
-// ================= SettingRow =================
 const SettingRow = ({
   icon,
   label,
@@ -109,7 +108,6 @@ const SettingRow = ({
   );
 };
 
-// ================= Screen =================
 const GeneralSettingsScreen: React.FC<GeneralProps> = ({ onBack }) => {
   const { colors, isDarkMode, toggleTheme } = useTheme();
   const isRTL = true;
@@ -128,8 +126,6 @@ const GeneralSettingsScreen: React.FC<GeneralProps> = ({ onBack }) => {
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: isDarkMode ? '#000000' : '#191D32' }]}>
       <StatusBar barStyle="light-content" />
-
-      {/* Header */}
       <View style={[styles.header, { flexDirection: rowDirection }]}>
         <TouchableOpacity onPress={onBack} style={styles.backCircle}>
           <MaterialCommunityIcons
@@ -157,7 +153,6 @@ const GeneralSettingsScreen: React.FC<GeneralProps> = ({ onBack }) => {
           contentContainerStyle={styles.content}
         >
 
-          {/* Section */}
           <Text style={[styles.sectionHeader, { color: colors.subText, textAlign: isRTL ? 'right' : 'left' }]}>
             {isRTL ? 'تفضيلات النظام' : 'System Preferences'}
           </Text>
@@ -225,7 +220,6 @@ const GeneralSettingsScreen: React.FC<GeneralProps> = ({ onBack }) => {
   );
 };
 
-// ================= Styles =================
 const styles = StyleSheet.create({
   container: { flex: 1 },
 

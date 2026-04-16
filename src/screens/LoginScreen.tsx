@@ -32,7 +32,6 @@ const LoginScreen: React.FC<LoginProps> = ({ onGoToSignup }) => {
   const [loading, setLoading] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
 
-  // 🔥 Animations
   const logoAnim = useRef(new Animated.Value(0)).current;
   const tabAnim = useRef(new Animated.Value(0)).current;
   const formAnim = useRef(new Animated.Value(0)).current;
@@ -63,7 +62,7 @@ const LoginScreen: React.FC<LoginProps> = ({ onGoToSignup }) => {
 
   const handleLogin = async () => {
     if (!email || !password) {
-      Alert.alert('خطأ', 'يرجى إدخال البيانات');
+      Alert.alert('خطأ', 'يرجى إدخال البريد الإلكتروني وكلمة المرور');
       return;
     }
     setLoading(true);
@@ -71,11 +70,10 @@ const LoginScreen: React.FC<LoginProps> = ({ onGoToSignup }) => {
     setLoading(false);
 
     if (error) {
-      Alert.alert('فشل الدخول', error.message);
+      Alert.alert('فشل الدخول', 'البريد الإلكتروني أو كلمة المرور غير صحيحة');
     }
   };
 
-  // Button press animation
   const handlePressIn = () => {
     Animated.spring(buttonScale, {
       toValue: 0.95,
@@ -104,7 +102,6 @@ const LoginScreen: React.FC<LoginProps> = ({ onGoToSignup }) => {
           keyboardShouldPersistTaps="handled"
         >
 
-          {/* Logo */}
           <Animated.View
             style={{
               opacity: logoAnim,
@@ -122,7 +119,6 @@ const LoginScreen: React.FC<LoginProps> = ({ onGoToSignup }) => {
             />
           </Animated.View>
 
-          {/* Tabs */}
           <Animated.View
             style={[
               styles.tabContainer,
@@ -143,19 +139,17 @@ const LoginScreen: React.FC<LoginProps> = ({ onGoToSignup }) => {
             <View style={styles.tabWrapper}>
               <View style={styles.tabItem}>
                 <Text style={[styles.tabText, { color: colors.background, fontWeight: 'bold' }]}>
-                  Login
+                  دخول
                 </Text>
               </View>
 
               <TouchableOpacity style={styles.tabItem} onPress={onGoToSignup}>
                 <Text style={[styles.tabText, { color: isDarkMode ? '#94A3B8' : '#64748B' }]}>
-                  Sign Up
+                  حساب جديد
                 </Text>
               </TouchableOpacity>
             </View>
           </Animated.View>
-
-          {/* Form */}
           <Animated.View
             style={[
               styles.form,
@@ -170,23 +164,22 @@ const LoginScreen: React.FC<LoginProps> = ({ onGoToSignup }) => {
               }
             ]}
           >
-            {/* Email */}
             <View style={styles.inputWrapper}>
-              <Text style={[styles.inputLabel, { color: colors.text }]}>Email Address</Text>
+              <Text style={[styles.inputLabel, { color: colors.text, textAlign: 'right' }]}>البريد الإلكتروني</Text>
               <TextInput
-                style={[styles.input, { borderBottomColor: colors.text + '40', color: colors.text }]}
+                style={[styles.input, { borderBottomColor: colors.text + '40', color: colors.text, textAlign: 'right' }]}
                 value={email}
                 onChangeText={setEmail}
                 placeholder="example@mail.com"
                 placeholderTextColor={colors.subText + '80'}
+                keyboardType="email-address"
+                autoCapitalize="none"
               />
             </View>
-
-            {/* Password */}
             <View style={styles.inputWrapper}>
-              <Text style={[styles.inputLabel, { color: colors.text }]}>Password</Text>
+              <Text style={[styles.inputLabel, { color: colors.text, textAlign: 'right' }]}>كلمة المرور</Text>
               <TextInput
-                style={[styles.input, { borderBottomColor: colors.text + '40', color: colors.text }]}
+                style={[styles.input, { borderBottomColor: colors.text + '40', color: colors.text, textAlign: 'right' }]}
                 secureTextEntry
                 value={password}
                 onChangeText={setPassword}
@@ -194,8 +187,6 @@ const LoginScreen: React.FC<LoginProps> = ({ onGoToSignup }) => {
                 placeholderTextColor={colors.subText + '80'}
               />
             </View>
-
-            {/* Button */}
             <Animated.View style={{ transform: [{ scale: buttonScale }] }}>
               <Pressable
                 onPressIn={handlePressIn}
@@ -207,31 +198,28 @@ const LoginScreen: React.FC<LoginProps> = ({ onGoToSignup }) => {
                   <ActivityIndicator color={colors.background} />
                 ) : (
                   <Text style={[styles.loginText, { color: colors.background }]}>
-                    Sign In
+                    تسجيل الدخول
                   </Text>
                 )}
               </Pressable>
             </Animated.View>
-
-            {/* Footer */}
             <View style={styles.footerRow}>
+              <TouchableOpacity>
+                <Text style={[styles.forgotText, { color: colors.primary }]}>
+                  نسيت كلمة المرور؟
+                </Text>
+              </TouchableOpacity>
               <View style={styles.rememberMeContainer}>
+                <Text style={[styles.rememberText, { color: colors.subText }]}>
+                  تذكرني
+                </Text>
                 <Switch
                   value={rememberMe}
                   onValueChange={setRememberMe}
                   trackColor={{ false: "#CBD5E1", true: colors.primary }}
                   thumbColor="#FFF"
                 />
-                <Text style={[styles.rememberText, { color: colors.subText }]}>
-                  Remember me
-                </Text>
               </View>
-
-              <TouchableOpacity>
-                <Text style={[styles.forgotText, { color: colors.primary }]}>
-                  Forgot Password?
-                </Text>
-              </TouchableOpacity>
             </View>
 
           </Animated.View>
@@ -253,9 +241,9 @@ const styles = StyleSheet.create({
   },
   logo: { width: 110, height: 110, borderRadius: 25, marginBottom: 30 },
   tabContainer: { width: '100%', height: 55, borderRadius: 18, marginBottom: 45, justifyContent: 'center' },
-  tabWrapper: { flexDirection: 'row' },
+  tabWrapper: { flexDirection: 'row-reverse' }, // عكس الاتجاه ليتناسب مع العربية
   tabItem: { flex: 1, alignItems: 'center' },
-  activeTabIndicator: { position: 'absolute', width: '48%', height: '80%', left: '1%', borderRadius: 15 },
+  activeTabIndicator: { position: 'absolute', width: '48%', height: '80%', right: '1%', borderRadius: 15 }, // تغيير left إلى right
   tabText: { fontSize: 15 },
   form: { width: '100%' },
   inputWrapper: { marginBottom: 25 },
@@ -263,9 +251,9 @@ const styles = StyleSheet.create({
   input: { borderBottomWidth: 1.5, paddingVertical: 12, fontSize: 16 },
   loginBtn: { borderRadius: 20, paddingVertical: 18, alignItems: 'center', marginTop: 10 },
   loginText: { fontWeight: 'bold', fontSize: 17 },
-  footerRow: { flexDirection: 'row', justifyContent: 'space-between', marginTop: 25 },
+  footerRow: { flexDirection: 'row', justifyContent: 'space-between', marginTop: 25, alignItems: 'center' },
   rememberMeContainer: { flexDirection: 'row', alignItems: 'center' },
-  rememberText: { fontSize: 13, marginLeft: 4 },
+  rememberText: { fontSize: 13, marginRight: 8 }, // تغيير marginLeft إلى marginRight
   forgotText: { fontSize: 13 }
 });
 

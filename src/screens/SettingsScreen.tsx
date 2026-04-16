@@ -7,19 +7,18 @@ import {
   SafeAreaView,
   StatusBar,
   Pressable,
-  Animated
+  Animated,
+  Platform
 } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useTheme } from '../context/ThemeContext';
 
 interface SettingsProps {
-  onNavigateToProfile: () => void;
-  onNavigateToGeneralSettings: () => void;
+  onNavigate: (screen: any) => void; 
   onLogout: () => void;
   onBack: () => void;
 }
 
-// ✅ Setting Item
 const SettingItem = ({
   icon,
   label,
@@ -28,7 +27,6 @@ const SettingItem = ({
   colors,
   isDestructive = false
 }: any) => {
-
   const scale = useRef(new Animated.Value(1)).current;
   const fade = useRef(new Animated.Value(0)).current;
 
@@ -42,17 +40,11 @@ const SettingItem = ({
   }, []);
 
   const handlePressIn = () => {
-    Animated.spring(scale, {
-      toValue: 0.96,
-      useNativeDriver: true,
-    }).start();
+    Animated.spring(scale, { toValue: 0.96, useNativeDriver: true }).start();
   };
 
   const handlePressOut = () => {
-    Animated.spring(scale, {
-      toValue: 1,
-      useNativeDriver: true,
-    }).start();
+    Animated.spring(scale, { toValue: 1, useNativeDriver: true }).start();
   };
 
   return (
@@ -83,14 +75,12 @@ const SettingItem = ({
           }
         ]}
       >
-        {!isDestructive && (
-          <MaterialCommunityIcons
-            name="chevron-left"
-            size={20}
-            color={colors.subText}
-            style={{ opacity: 0.4 }}
-          />
-        )}
+        <MaterialCommunityIcons
+          name="chevron-left"
+          size={20}
+          color={colors.subText}
+          style={{ opacity: 0.3 }}
+        />
 
         <Text
           style={[
@@ -127,37 +117,25 @@ const SettingItem = ({
 };
 
 const SettingsScreen: React.FC<SettingsProps> = ({
-  onNavigateToProfile,
-  onNavigateToGeneralSettings,
+  onNavigate,
   onLogout,
   onBack,
 }) => {
-
   const { colors, isDarkMode } = useTheme();
 
   const headerFade = useRef(new Animated.Value(0)).current;
   const contentAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
-    Animated.timing(headerFade, {
-      toValue: 1,
-      duration: 800,
-      useNativeDriver: true,
-    }).start();
-
-    Animated.timing(contentAnim, {
-      toValue: 1,
-      duration: 800,
-      delay: 200,
-      useNativeDriver: true,
-    }).start();
+    Animated.parallel([
+      Animated.timing(headerFade, { toValue: 1, duration: 600, useNativeDriver: true }),
+      Animated.timing(contentAnim, { toValue: 1, duration: 700, delay: 100, useNativeDriver: true })
+    ]).start();
   }, []);
 
   return (
-    <SafeAreaView style={[styles.container, { backgroundColor: isDarkMode ? '#000000' : '#191D32' }]}>
+    <SafeAreaView style={[styles.container, { backgroundColor: isDarkMode ? '#0A0E17' : '#191D32' }]}>
       <StatusBar barStyle="light-content" />
-
-      {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity
           onPress={onBack}
@@ -167,19 +145,12 @@ const SettingsScreen: React.FC<SettingsProps> = ({
           <MaterialCommunityIcons name="arrow-right" size={26} color="#FFF" />
         </TouchableOpacity>
 
-        <Animated.Text
-          style={[
-            styles.headerTitle,
-            { opacity: headerFade }
-          ]}
-        >
+        <Animated.Text style={[styles.headerTitle, { opacity: headerFade }]}>
           الإعدادات
         </Animated.Text>
 
         <View style={{ width: 45 }} />
       </View>
-
-      {/* Content */}
       <Animated.View
         style={[
           styles.content,
@@ -189,7 +160,7 @@ const SettingsScreen: React.FC<SettingsProps> = ({
             transform: [{
               translateY: contentAnim.interpolate({
                 inputRange: [0, 1],
-                outputRange: [40, 0],
+                outputRange: [50, 0],
               })
             }]
           }
@@ -203,7 +174,7 @@ const SettingsScreen: React.FC<SettingsProps> = ({
           index={1}
           icon="account-circle-outline"
           label="الملف الشخصي"
-          onPress={onNavigateToProfile}
+          onPress={() => onNavigate('profile')}
           colors={colors}
         />
 
@@ -211,19 +182,19 @@ const SettingsScreen: React.FC<SettingsProps> = ({
           index={2}
           icon="palette-outline"
           label="المظهر والتفضيلات"
-          onPress={onNavigateToGeneralSettings}
+          onPress={() => onNavigate('generalSettings')}
           colors={colors}
         />
 
         <SettingItem
           index={3}
           icon="bell-outline"
-          label="التنبيهات"
-          onPress={() => {}}
+          label="التنبيهات والاشعارات"
+          onPress={() => onNavigate('notifications')} 
           colors={colors}
         />
 
-        <View style={[styles.divider, { backgroundColor: colors.subText + '10' }]} />
+        <View style={[styles.divider, { backgroundColor: colors.subText + '15' }]} />
 
         <SettingItem
           index={4}
@@ -233,8 +204,6 @@ const SettingsScreen: React.FC<SettingsProps> = ({
           colors={colors}
           isDestructive
         />
-
-        {/* Footer */}
         <View style={styles.footer}>
           <View style={[styles.versionBadge, { backgroundColor: colors.card }]}>
             <Text style={[styles.versionText, { color: colors.subText }]}>
@@ -242,7 +211,6 @@ const SettingsScreen: React.FC<SettingsProps> = ({
             </Text>
           </View>
         </View>
-
       </Animated.View>
     </SafeAreaView>
   );
@@ -250,38 +218,38 @@ const SettingsScreen: React.FC<SettingsProps> = ({
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
-
   header: {
-    height: 90,
+    height: Platform.OS === 'ios' ? 70 : 90,
     flexDirection: 'row-reverse',
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 20,
   },
-
   backCircle: {
     width: 45,
     height: 45,
     borderRadius: 23,
-    backgroundColor: 'rgba(255,255,255,0.12)',
+    backgroundColor: 'rgba(255,255,255,0.15)',
     justifyContent: 'center',
     alignItems: 'center'
   },
-
   headerTitle: {
     color: '#FFF',
     fontSize: 22,
     fontWeight: 'bold'
   },
-
   content: {
     flex: 1,
-    borderTopLeftRadius: 45,
-    borderTopRightRadius: 45,
+    borderTopLeftRadius: 40,
+    borderTopRightRadius: 40,
     paddingTop: 35,
-    paddingHorizontal: 20
+    paddingHorizontal: 20,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: -10 },
+    shadowOpacity: 0.1,
+    shadowRadius: 10,
+    elevation: 5
   },
-
   sectionTitle: {
     fontSize: 13,
     fontWeight: '800',
@@ -291,53 +259,45 @@ const styles = StyleSheet.create({
     opacity: 0.6,
     letterSpacing: 0.5
   },
-
   menuItem: {
-    height: 70,
-    borderRadius: 20,
+    height: 72,
+    borderRadius: 22,
     paddingHorizontal: 15,
     marginBottom: 12,
     flexDirection: 'row',
     alignItems: 'center',
-    elevation: 1,
-    shadowColor: "#000",
-    shadowOpacity: 0.05,
-    shadowRadius: 5,
+    justifyContent: 'space-between',
+    borderWidth: 1,
+    borderColor: 'rgba(0,0,0,0.02)',
   },
-
   iconContainer: {
-    width: 44,
-    height: 44,
-    borderRadius: 15,
+    width: 46,
+    height: 46,
+    borderRadius: 16,
     justifyContent: 'center',
     alignItems: 'center'
   },
-
   menuText: {
     flex: 1,
     fontSize: 16,
-    marginRight: 15
+    marginRight: 15,
   },
-
   divider: {
-    height: 1.5,
+    height: 1,
     width: '90%',
     alignSelf: 'center',
-    marginVertical: 15,
+    marginVertical: 20,
   },
-
   footer: {
     marginTop: 'auto',
-    marginBottom: 20,
+    marginBottom: Platform.OS === 'ios' ? 10 : 25,
     alignItems: 'center'
   },
-
   versionBadge: {
     paddingHorizontal: 15,
-    paddingVertical: 6,
+    paddingVertical: 8,
     borderRadius: 20,
   },
-
   versionText: {
     fontSize: 11,
     fontWeight: 'bold',

@@ -78,7 +78,7 @@ export default function VitalsScreen({ onBack }: VitalsScreenProps) {
             transform: [{
               translateX: anim.interpolate({
                 inputRange: [0, 1],
-                outputRange: [80, 0] // من اليمين
+                outputRange: [80, 0] 
               })
             }]
           }

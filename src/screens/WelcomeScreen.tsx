@@ -30,14 +30,12 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onLoginPress, onRegisterP
     Manrope_600SemiBold,
   });
 
-  // Animations
   const fadeTop = useRef(new Animated.Value(0)).current;
   const logoScale = useRef(new Animated.Value(0.7)).current;
   const fadeTexts = useRef(new Animated.Value(0)).current;
   const buttonsAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
-    // welcome text
     Animated.timing(fadeTop, {
       toValue: 1,
       duration: 800,
@@ -45,14 +43,12 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onLoginPress, onRegisterP
       useNativeDriver: true
     }).start();
 
-    // logo zoom
     Animated.spring(logoScale, {
       toValue: 1,
       delay: 400,
       useNativeDriver: true
     }).start();
 
-    // texts
     Animated.timing(fadeTexts, {
       toValue: 1,
       duration: 800,
@@ -60,7 +56,6 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onLoginPress, onRegisterP
       useNativeDriver: true
     }).start();
 
-    // buttons
     Animated.timing(buttonsAnim, {
       toValue: 1,
       duration: 800,
@@ -80,7 +75,6 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onLoginPress, onRegisterP
 
       <View style={styles.content}>
         
-        {/* Welcome */}
         <Animated.View style={{
           opacity: fadeTop,
           transform: [{
@@ -97,7 +91,6 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onLoginPress, onRegisterP
 
         <View style={styles.logoContainer}>
           
-          {/* Logo */}
           <Animated.View style={[
             styles.logoWrapper,
             { transform: [{ scale: logoScale }] }
@@ -108,8 +101,6 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onLoginPress, onRegisterP
               resizeMode="contain"
             />
           </Animated.View>
-
-          {/* Brand */}
           <Animated.Text 
             style={[
               styles.brandName,
@@ -127,8 +118,6 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onLoginPress, onRegisterP
           >
             Rafiq
           </Animated.Text>
-
-          {/* Tagline */}
           <Animated.Text 
             style={[
               styles.tagline,
@@ -149,8 +138,6 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onLoginPress, onRegisterP
 
         </View>
       </View>
-
-      {/* Buttons */}
       <Animated.View 
         style={[
           styles.buttonContainer,
@@ -224,7 +211,7 @@ const styles = StyleSheet.create({
     borderWidth: 4,
     borderColor: 'rgba(255,255,255,0.5)'
   },
-  logoImage: { width: 140, height: 140 },
+  logoImage: { width: 2500, height: 140 },
   brandName: { 
     fontSize: 56, 
     fontFamily: 'SpaceGrotesk_700Bold', 

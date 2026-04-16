@@ -35,7 +35,6 @@ const SignUpScreen: React.FC<SignUpProps> = ({ onGoToLogin }) => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
-  // Animations
   const logoAnim = useRef(new Animated.Value(0)).current;
   const formAnim = useRef(new Animated.Value(0)).current;
 
@@ -84,7 +83,6 @@ const SignUpScreen: React.FC<SignUpProps> = ({ onGoToLogin }) => {
     <SafeAreaView style={[styles.container, { backgroundColor: isDarkMode ? '#000' : '#191D32' }]}>
       <StatusBar barStyle="light-content" />
       
-      {/* Top Section */}
       <View style={styles.topSection}>
         <Animated.Image 
           source={require('../../assets/black.jpeg')} 
@@ -105,7 +103,6 @@ const SignUpScreen: React.FC<SignUpProps> = ({ onGoToLogin }) => {
         <View style={[styles.whiteCurve, { backgroundColor: colors.background }]} />
       </View>
 
-      {/* Form */}
       <View style={[styles.bottomSection, { backgroundColor: colors.background }]}>
         <KeyboardAvoidingView 
           behavior={Platform.OS === 'ios' ? 'padding' : undefined} 
@@ -124,13 +121,11 @@ const SignUpScreen: React.FC<SignUpProps> = ({ onGoToLogin }) => {
             }}
             showsVerticalScrollIndicator={false}
           >
-            {/* Header */}
             <View style={styles.welcomeContainer}>
               <Text style={[styles.title, { color: colors.text }]}>إنشاء حساب جديد</Text>
               <Text style={[styles.subtitle, { color: colors.subText }]}>انضم إلى عائلة رفيق اليوم</Text>
             </View>
 
-            {/* Tabs */}
             <View style={[styles.tabContainer, { backgroundColor: colors.card }]}>
               <TouchableOpacity style={styles.tabBtn} onPress={onGoToLogin}>
                 <Text style={[styles.tabText, { color: colors.subText }]}>دخول</Text>
@@ -140,7 +135,6 @@ const SignUpScreen: React.FC<SignUpProps> = ({ onGoToLogin }) => {
               </View>
             </View>
 
-            {/* Inputs */}
             <View style={styles.formContainer}>
               <InputBox icon="account-outline" placeholder="اسم المستخدم" val={fullName} set={setFullName} colors={colors} delay={0}/>
               <InputBox icon="email-outline" placeholder="البريد الإلكتروني" val={email} set={setEmail} keyboard="email-address" colors={colors} delay={100}/>
@@ -148,7 +142,6 @@ const SignUpScreen: React.FC<SignUpProps> = ({ onGoToLogin }) => {
               <InputBox icon="lock-check-outline" placeholder="تأكيد كلمة المرور" val={confirmPassword} set={setConfirmPassword} secure colors={colors} delay={300}/>
             </View>
 
-            {/* Button */}
             <TouchableOpacity 
               style={[styles.submitButton, { backgroundColor: colors.primary }]} 
               onPress={handleSignUp}
@@ -172,7 +165,6 @@ const SignUpScreen: React.FC<SignUpProps> = ({ onGoToLogin }) => {
   );
 };
 
-// Input Component
 const InputBox = ({ icon, placeholder, val, set, secure, keyboard, colors, delay }: any) => {
   const anim = useRef(new Animated.Value(0)).current;
 

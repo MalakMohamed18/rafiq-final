@@ -92,8 +92,6 @@ const DashboardScreen: React.FC<Props> = ({ onNavigate }) => {
           <ActivityCard index={1} label="النبض" value="98" color="#E8674A" icon="heart" status="مستقر" />
           <ActivityCard index={2} label="الضغط" value="118/76" color="#1B3A6B" icon="shield-check" status="مستقر" />
         </View>
-
-        {/* Chart */}
         <Text style={[styles.sectionLabel, { color: colors.text }]}>ملخص الحالة الأسبوعي</Text>
         <Animated.View
           style={[
@@ -123,7 +121,6 @@ const DashboardScreen: React.FC<Props> = ({ onNavigate }) => {
 
       </ScrollView>
 
-      {/* Bottom Nav */}
       <View style={[styles.bottomNav, { backgroundColor: colors.card }]}>
         <NavButton icon="cog" label="الإعدادات" onPress={() => onNavigate('settings')} color={colors.subText} />
         <NavButton icon="chat-processing-outline" label="دردشة" onPress={() => onNavigate('chat')} color={colors.subText} badge="1" />

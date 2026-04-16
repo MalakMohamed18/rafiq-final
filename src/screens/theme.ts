@@ -14,7 +14,7 @@ export const lightTheme = {
   text: '#191D32',
   subText: '#64748B',
   primary: '#0077C8',
-  navBorder: '#E2E8F0', // أضف قيمة هنا
+  navBorder: '#E2E8F0', 
 };
 
 export const darkTheme: ThemeColors = {

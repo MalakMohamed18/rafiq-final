@@ -19,10 +19,8 @@ const { width: SW } = Dimensions.get('window');
 const ChatScreen: React.FC<ChatProps> = ({ onNavigate }) => {
   const { colors, isDarkMode } = useTheme();
 
-  // Bot message animation
   const botAnim = useRef(new Animated.Value(0)).current;
 
-  // User message animation
   const userAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -49,8 +47,6 @@ const ChatScreen: React.FC<ChatProps> = ({ onNavigate }) => {
         style={[styles.container, { backgroundColor: colors.background }]}
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
       >
-
-        {/* Header */}
         <View style={[styles.header, { backgroundColor: isDarkMode ? '#000' : '#191D32' }]}>
           <TouchableOpacity style={styles.headerCircleBtn} onPress={() => onNavigate('home')}>
             <MaterialCommunityIcons name="chevron-left" size={28} color="#FFF" />
@@ -68,8 +64,6 @@ const ChatScreen: React.FC<ChatProps> = ({ onNavigate }) => {
             <MaterialCommunityIcons name="dots-vertical" size={22} color="#FFF" />
           </TouchableOpacity>
         </View>
-
-        {/* Chat */}
         <ScrollView
           style={styles.chatArea}
           contentContainerStyle={styles.chatContent}
@@ -81,8 +75,6 @@ const ChatScreen: React.FC<ChatProps> = ({ onNavigate }) => {
             <Text style={[styles.dateText, { color: colors.subText }]}>اليوم، 16 أبريل</Text>
             <View style={[styles.dateLine, { backgroundColor: colors.subText + '20' }]} />
           </View>
-
-          {/* Bot Message */}
           <Animated.View
             style={[
               styles.messageRow,
@@ -121,8 +113,6 @@ const ChatScreen: React.FC<ChatProps> = ({ onNavigate }) => {
               <Text style={styles.timeStamp}>10:27 PM</Text>
             </View>
           </Animated.View>
-
-          {/* User Message */}
           <Animated.View
             style={[
               styles.messageRow,
@@ -150,7 +140,6 @@ const ChatScreen: React.FC<ChatProps> = ({ onNavigate }) => {
 
         </ScrollView>
 
-        {/* Input */}
         <View style={[styles.inputWrapper, { backgroundColor: colors.background }]}>
           <View style={[styles.inputContainer, { backgroundColor: colors.card }]}>
             <TouchableOpacity style={styles.attachButton}>
@@ -169,8 +158,6 @@ const ChatScreen: React.FC<ChatProps> = ({ onNavigate }) => {
             </TouchableOpacity>
           </View>
         </View>
-
-        {/* Bottom Nav */}
         <View style={[styles.bottomNav, { backgroundColor: colors.card }]}>
           <NavIcon icon="cog-outline" label="الإعدادات" onPress={() => onNavigate('settings')} color={colors.subText} />
           <NavIcon icon="chat-processing" label="دردشة" onPress={() => onNavigate('chat')} color={colors.primary} active badge="1" />
@@ -197,7 +184,6 @@ const NavIcon = ({ icon, label, onPress, color, active, badge }: any) => (
   </TouchableOpacity>
 );
 
-// نفس ال styles بتاعتك بدون تغيير
 const styles = StyleSheet.create({
   safeArea: { flex: 1 },
   container: { flex: 1 },
