@@ -36,3 +36,15 @@
    ```bash
    git clone [https://github.com/your-username/rafiq-final.git](https://github.com/your-username/rafiq-final.git)
    cd rafiq-final
+   
+npm install @supabase/supabase-js @expo/vector-icons react-native-safe-area-context
+npx expo start
+📂 هيكلة المشروع (Project Structure)
+src/components/: يحتوي على العناصر القابلة لإعادة الاستخدام مثل الأزرار والرسوم البيانية.
+
+src/context/: يحتوي على ThemeContext المسؤول عن الألوان والوضع الداكن.
+
+src/lib/: إعدادات الربط مع Supabase.
+
+src/screens/: تحتوي على الصفحات الأساسية (Home, Profile, Vitals...).
+
